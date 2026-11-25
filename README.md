@@ -1,75 +1,80 @@
-# React + TypeScript + Vite
+# وصل للتوصيل — صفحة متابعة الطلبات
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+صفحة ويب عربية متجاوبة (`RTL`) مصممة لفريق عمليات شركة **وصل للتوصيل** في صنعاء لمتابعة **24 طلباً** يومياً بوضوح عالٍ وسرعة استخدام على الجوال وسطح المكتب. تتيح الصفحة البحث الفوري باسم الزبون مع تطبيع الحروف العربية، والترتيب الحتمي حسب التاريخ أو المبلغ بواجهة تشغيلية عالية التباين.
 
-Currently, two official plugins are available:
+**الرابط المباشر (Live Demo):** https://wasal-orders.netlify.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## المتطلبات المنفذة
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **عرض الطلبات (24 طلباً):** جلب غير متزامن من `public/orders.json` وعرض الحقول الخمسة لكل طلب: رقم الطلب، اسم الزبون، المبلغ بالريال اليمني (`ر.ي`)، التاريخ، والحالة (`جديد`، `في الطريق`، `تم التوصيل`).
+- **البحث الفوري باسم الزبون:** بحث متسامح مع تطبيع الحروف العربية وزر مسح سريع (`×`) مع تجاهل الاستعلامات المكوّنة من مسافات فقط.
+- **الترتيب حسب التاريخ أو المبلغ:** أربعة خيارات ترتيب حتمية (`الأحدث أولاً`، `الأقدم أولاً`، `الأعلى مبلغاً`، `الأقل مبلغاً`) تعمل مباشرة فوق نتائج البحث النشطة.
+- **تصميم متجاوب (Mobile-First):** بطاقات منظمة على شاشات الجوال (`< 768px`) وجدول دلالي منظم على الشاشات الأكبر (`>= 768px`) دون تمرير أفقي على عرض `375px`.
+- **حالات الواجهة الكاملة:**
+  - **حالة التحميل (`LoadingState`):** هياكل تحميل (Skeletons) مطابقة لأبعاد البطاقات والجدول لمنع إزاحة التخطيط (`CLS = 0`).
+  - **حالة الخطأ (`ErrorState`):** رسالة خطأ عربية واضحة مع زر **«إعادة المحاولة»** للاستعادة الكاملة.
+  - **حالة عدم وجود نتائج (`EmptySearchState`):** رسالة واضحة مع زر **«مسح البحث»**.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## أبرز القرارات التقنية
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **جلب حقيقي آمن وإلغاء الطلبات:** استخدام `fetch` الأصلي لقراءة `public/orders.json` مع تحقق وقت التشغيل من بنية البيانات (`ordersService.ts`) وإدارة دورة الحياة عبر `AbortController` داخل `useOrders.ts` لمنع حالات السباق (`Race Conditions`) أو تحديث الحالة بعد إلغاء تحميل المكوّن أو أثناء التكرار السريع لـ `Retry`.
+- **حالة مشتقة نقية (`useMemo`) ومعالجة عربية دقيقة:** حساب قائمة الطلبات المعروضة عبر `useMemo` دون تكرار الحالة، مع تطبيع النص العربي في `arabicSearch.ts` (حذف التشكيل والتطويل وتوحيد `أ/إ/آ` ← `ا`، `ة` ← `ه`، `ى` ← `ي`) وترتيب غير معدّل للأصل (`Immutable`) مع قواعد فك التعادل (`Tie-Breakers`) في `sortOrders.ts`.
+- **حزمة تقنية خفيفة بلا تعقيد:** مبني بـ React 19 و TypeScript و Vite 8 و Tailwind CSS v4 مع تنسيق الأرقام والتواريخ عبر واجهات المتصفح الأصلية (`Intl.NumberFormat` و `Intl.DateTimeFormat`) المهيّأة مرة واحدة على مستوى الوحدة (دون Redux أو Axios أو Moment/Day.js أو Lodash).
+- **واجهة RTL تشغيلية عالية التباين:** الاعتماد الكامل على الخصائص المنطقية في CSS (`ps-`, `pe-`, `start-`, `end-`, `text-start`) وعزل اتجاه أرقام الطلبات عبر `dir="ltr"` مع `tabular-nums` لضمان محاذاة رقمية دقيقة وقراءة مريحة في الإضاءة الخارجية.
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## اختبار حالة الخطأ وإعادة المحاولة
 
+يمكن للمراجع التحقق من حالة الخطأ والاستعادة النظيفة بطريقتين:
+
+1. **عبر معامل الرابط `?error=1`:**
+   افتح الرابط https://wasal-orders.netlify.app/?error=1 لمحاكاة فشل التحميل الأولي، ثم اضغط **«إعادة المحاولة»** للتأكد من إزالة المعامل من الرابط والانتقال إلى حالة التحميل ثم عرض الطلبات بنجاح.
+2. **عبر وضع عدم الاتصال (`Offline`) في أدوات المطوّر:**
+   افتح `DevTools` ← تبويب `Network` ← فعّل خيار **Offline** ثم أعد تحميل الصفحة لمشاهدة تعامل التطبيق مع فشل الشبكة الحقيقي، بعدها أعد الاتصال واضغط **«إعادة المحاولة»**.
+
+---
+
+## بنية المشروع
+
+```text
+public/
+└── orders.json                 # 24 طلباً واقعياً في صنعاء (WSL-1001 إلى WSL-1024)
+src/
+├── assets/
+│   └── wasal-logo.png          # شعار وصل بخلفية شفافة
+├── components/
+│   ├── Header.tsx              # الترويسة العلوية العائمة بشعار وصل
+│   ├── OrdersToolbar.tsx       # البحث باسم الزبون ومبدّل الترتيب وعداد النتائج
+│   ├── OrderCard.tsx           # بطاقة الطلب لشاشات الجوال (< 768px)
+│   ├── OrdersTable.tsx         # جدول الطلبات لشاشات سطح المكتب (>= 768px)
+│   ├── StatusBadge.tsx         # شارة الحالة الدلالية عالية التباين
+│   └── StateView.tsx           # حالات التحميل والخطأ والبحث الفارغ
+├── hooks/
+│   └── useOrders.ts            # إدارة الجلب غير المتزامن و AbortController و retry
+├── services/
+│   └── ordersService.ts        # استدعاء fetch والتحقق من استجابة وبيانات الطلبات
+├── types/
+│   └── order.ts                # أنواع Order و OrderStatus و SortOption و AsyncStatus
+├── utils/
+│   ├── arabicSearch.ts         # تطبيع الحروف العربية والفلترة باسم الزبون
+│   ├── formatters.ts           # تنسيق الريال اليمني والتاريخ العربي بأرقام لاتينية
+│   └── sortOrders.ts           # الترتيب الحتمي غير المعدّل للأصل مع فك التعادل
+├── App.tsx                     # نقطة التجميع والحالة المشتقة عبر useMemo
+├── index.css                   # إعداد Tailwind CSS v4 ومتغيرات الهوية البصرية
+└── main.tsx                    # نقطة دخول التطبيق
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## التشغيل المحلي
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev
+npm run build
 ```
