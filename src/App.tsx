@@ -3,13 +3,18 @@ import { Header } from './components/Header'
 import { OrderCard } from './components/OrderCard'
 import { OrdersTable } from './components/OrdersTable'
 import { OrdersToolbar } from './components/OrdersToolbar'
+import {
+  EmptySearchState,
+  ErrorState,
+  LoadingState,
+} from './components/StateView'
 import { useOrders } from './hooks/useOrders'
 import type { SortOption } from './types/order'
 import { filterOrdersByCustomer } from './utils/arabicSearch'
 import { sortOrders } from './utils/sortOrders'
 
 function App() {
-  const { orders, status, error } = useOrders()
+  const { orders, status, error, retry } = useOrders()
   const [searchQuery, setSearchQuery] = useState('')
   const [sortBy, setSortBy] = useState<SortOption>('date-desc')
 
@@ -33,32 +38,16 @@ function App() {
           disabled={status !== 'success'}
         />
 
-        {status === 'loading' && (
-          <p
-            aria-busy="true"
-            className="py-12 text-center text-sm font-medium text-wasal-muted"
-          >
-            جارٍ تحميل الطلبات...
-          </p>
-        )}
-
-        {status === 'error' && (
-          <p
-            role="alert"
-            className="py-12 text-center text-sm font-medium text-wasal-ink"
-          >
-            {error ??
-              'تعذر تحميل قائمة الطلبات. يرجى التحقق من الاتصال والمحاولة مجدداً.'}
-          </p>
-        )}
-
-        {status === 'success' && visibleOrders.length === 0 && (
-          <p className="py-12 text-center text-sm font-medium text-wasal-muted">
-            لا توجد طلبات مطابقة لـ «{searchQuery.trim()}»
-          </p>
-        )}
-
-        {status === 'success' && visibleOrders.length > 0 && (
+        {status === 'loading' ? (
+          <LoadingState />
+        ) : status === 'error' ? (
+          <ErrorState message={error ?? undefined} onRetry={retry} />
+        ) : visibleOrders.length === 0 ? (
+          <EmptySearchState
+            query={searchQuery}
+            onClearSearch={() => setSearchQuery('')}
+          />
+        ) : (
           <>
             <section
               aria-label="قائمة الطلبات"
