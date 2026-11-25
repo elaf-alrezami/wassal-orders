@@ -1,1 +1,52 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans Arabic", system-ui, -apple-system, sans-serif;
+
+  /* Wasal Brand & Operational Light Mode Surface Tokens */
+  --color-wasal-green: #4eb800;
+  --color-wasal-green-dark: #347d00;
+  --color-wasal-green-hover: #2b6900;
+  --color-wasal-green-soft: #f0fdf4;
+  --color-wasal-canvas: #f8fafc;
+  --color-wasal-surface: #ffffff;
+  --color-wasal-border: #e5e7eb;
+  --color-wasal-ink: #111111;
+  --color-wasal-muted: #4b5563;
+
+  /* High-Contrast Semantic Status Tokens */
+  --color-status-new-bg: #eff6ff;
+  --color-status-new-text: #1d4ed8;
+  --color-status-new-border: #bfdbfe;
+  --color-status-new-dot: #2563eb;
+
+  --color-status-transit-bg: #fffbeb;
+  --color-status-transit-text: #b45309;
+  --color-status-transit-border: #fde68a;
+  --color-status-transit-dot: #d97706;
+
+  --color-status-delivered-bg: #f0fdf4;
+  --color-status-delivered-text: #15803d;
+  --color-status-delivered-border: #bbf7d0;
+  --color-status-delivered-dot: #4eb800;
+}
+
+@layer base {
+  html {
+    direction: rtl;
+    background-color: var(--color-wasal-canvas);
+    color: var(--color-wasal-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    direction: rtl;
+    background-color: var(--color-wasal-canvas);
+    color: var(--color-wasal-ink);
+    font-family: var(--font-sans);
+  }
+}
