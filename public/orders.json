@@ -1,0 +1,170 @@
+[
+  {
+    "id": "WSL-1001",
+    "customerName": "أحمد المنصور",
+    "amount": 15000,
+    "createdAt": "2026-11-25T10:15:00+03:00",
+    "status": "new"
+  },
+  {
+    "id": "WSL-1002",
+    "customerName": "فاطمة الحميري",
+    "amount": 8500,
+    "createdAt": "2026-11-25T09:40:00+03:00",
+    "status": "in_transit"
+  },
+  {
+    "id": "WSL-1003",
+    "customerName": "مصطفى الشامي",
+    "amount": 22000,
+    "createdAt": "2026-11-24T18:30:00+03:00",
+    "status": "delivered"
+  },
+  {
+    "id": "WSL-1004",
+    "customerName": "إبراهيم العولقي",
+    "amount": 12000,
+    "createdAt": "2026-11-24T14:15:00+03:00",
+    "status": "new"
+  },
+  {
+    "id": "WSL-1005",
+    "customerName": "سارة السنباني",
+    "amount": 6500,
+    "createdAt": "2026-11-25T11:20:00+03:00",
+    "status": "new"
+  },
+  {
+    "id": "WSL-1006",
+    "customerName": "يحيى المتوكل",
+    "amount": 12500,
+    "createdAt": "2026-11-23T16:45:00+03:00",
+    "status": "in_transit"
+  },
+  {
+    "id": "WSL-1007",
+    "customerName": "آمنة الشرعبي",
+    "amount": 31000,
+    "createdAt": "2026-11-24T11:05:00+03:00",
+    "status": "delivered"
+  },
+  {
+    "id": "WSL-1008",
+    "customerName": "حمزة الدبعي",
+    "amount": 4500,
+    "createdAt": "2026-11-22T13:10:00+03:00",
+    "status": "delivered"
+  },
+  {
+    "id": "WSL-1009",
+    "customerName": "منى الأغبري",
+    "amount": 19500,
+    "createdAt": "2026-11-25T08:50:00+03:00",
+    "status": "in_transit"
+  },
+  {
+    "id": "WSL-1010",
+    "customerName": "عبدالله الذماري",
+    "amount": 48500,
+    "createdAt": "2026-11-23T20:00:00+03:00",
+    "status": "delivered"
+  },
+  {
+    "id": "WSL-1011",
+    "customerName": "خالد العنسي",
+    "amount": 9000,
+    "createdAt": "2026-11-21T10:00:00+03:00",
+    "status": "delivered"
+  },
+  {
+    "id": "WSL-1012",
+    "customerName": "عائشة الإرياني",
+    "amount": 17500,
+    "createdAt": "2026-11-24T14:15:00+03:00",
+    "status": "in_transit"
+  },
+  {
+    "id": "WSL-1013",
+    "customerName": "محمد القباطي",
+    "amount": 3500,
+    "createdAt": "2026-11-20T15:25:00+03:00",
+    "status": "delivered"
+  },
+  {
+    "id": "WSL-1014",
+    "customerName": "أسامة الحداد",
+    "amount": 15000,
+    "createdAt": "2026-11-25T13:05:00+03:00",
+    "status": "new"
+  },
+  {
+    "id": "WSL-1015",
+    "customerName": "ليلى الشميري",
+    "amount": 27500,
+    "createdAt": "2026-11-22T17:40:00+03:00",
+    "status": "in_transit"
+  },
+  {
+    "id": "WSL-1016",
+    "customerName": "طارق المقطري",
+    "amount": 11000,
+    "createdAt": "2026-11-19T12:30:00+03:00",
+    "status": "delivered"
+  },
+  {
+    "id": "WSL-1017",
+    "customerName": "خديجة الأكوع",
+    "amount": 14000,
+    "createdAt": "2026-11-21T10:00:00+03:00",
+    "status": "new"
+  },
+  {
+    "id": "WSL-1018",
+    "customerName": "صالح الحرازي",
+    "amount": 36000,
+    "createdAt": "2026-11-23T09:15:00+03:00",
+    "status": "in_transit"
+  },
+  {
+    "id": "WSL-1019",
+    "customerName": "ندى الصبيحي",
+    "amount": 12500,
+    "createdAt": "2026-11-24T19:50:00+03:00",
+    "status": "new"
+  },
+  {
+    "id": "WSL-1020",
+    "customerName": "يوسف البعداني",
+    "amount": 7000,
+    "createdAt": "2026-11-18T16:10:00+03:00",
+    "status": "delivered"
+  },
+  {
+    "id": "WSL-1021",
+    "customerName": "إيمان المقطري",
+    "amount": 24500,
+    "createdAt": "2026-11-25T12:45:00+03:00",
+    "status": "new"
+  },
+  {
+    "id": "WSL-1022",
+    "customerName": "عمر الصلاحي",
+    "amount": 16000,
+    "createdAt": "2026-11-22T08:30:00+03:00",
+    "status": "in_transit"
+  },
+  {
+    "id": "WSL-1023",
+    "customerName": "بلقيس الشيباني",
+    "amount": 42000,
+    "createdAt": "2026-11-25T14:10:00+03:00",
+    "status": "new"
+  },
+  {
+    "id": "WSL-1024",
+    "customerName": "وليد الوصابي",
+    "amount": 5500,
+    "createdAt": "2026-11-23T11:35:00+03:00",
+    "status": "in_transit"
+  }
+]
